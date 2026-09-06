@@ -1,0 +1,162 @@
+.people-container {
+  padding: 32px 5%;
+  max-width: 100%;
+  margin: 0 auto;
+}
+.people-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+.people-header h2 {
+  font-size: 24px;
+  color: #111;
+}
+.add-btn {
+  padding: 10px 20px;
+  background: #0066cc;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.add-btn:hover {
+  background: #0052a3;
+}
+.search-bar {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  margin-bottom: 24px;
+  outline: none;
+}
+.search-bar:focus {
+  border-color: #0066cc;
+}
+.people-table-container {
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  border: 1px solid #eee;
+  overflow-x: auto;
+}
+
+.people-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.people-table th, .people-table td {
+  padding: 16px 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.people-table th {
+  background: #f8f9fa;
+  font-size: 14px;
+  font-weight: 600;
+  color: #555;
+}
+
+.people-table tr:last-child td {
+  border-bottom: none;
+}
+
+.people-table tr:hover {
+  background: #fcfcfc;
+}
+
+.font-medium {
+  font-weight: 500;
+  color: #111;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 32px !important;
+  color: #777;
+}
+
+.table-actions {
+  display: flex;
+  gap: 8px;
+}
+.edit-btn, .delete-btn {
+  padding: 6px 12px;
+  font-size: 13px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+.edit-btn {
+  background: #f1f5f9;
+  color: #334155;
+}
+.edit-btn:hover {
+  background: #e2e8f0;
+}
+.delete-btn {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+.delete-btn:hover {
+  background: #fca5a5;
+}
+
+
+.pagination-controls {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 16px;
+  margin-top: 16px;
+  padding: 8px 0;
+}
+
+.pagination-controls button {
+  padding: 8px 16px;
+  border: 1px solid #ddd;
+  background: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: #333;
+}
+
+.pagination-controls button:hover:not(:disabled) {
+  background: #f1f5f9;
+}
+
+.pagination-controls button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pagination-info {
+  font-size: 14px;
+  color: #555;
+  font-weight: 500;
+}
+
+.skeleton-row td {
+  padding: 16px 20px;
+}
+
+.skeleton-box {
+  height: 20px;
+  background: #e2e8f0;
+  border-radius: 4px;
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}

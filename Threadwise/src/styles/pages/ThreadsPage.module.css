@@ -1,0 +1,154 @@
+.page-container {
+  padding: 32px 5%;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.page-header h2 {
+  font-size: 24px;
+  color: #111;
+}
+
+.action-btn {
+  padding: 10px 20px;
+  background: #0066cc;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.action-btn:hover {
+  background: #0052a3;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  margin-bottom: 24px;
+  outline: none;
+}
+
+.search-input:focus {
+  border-color: #0066cc;
+}
+
+.threads-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.thread-card {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  border: 1px solid #eee;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.thread-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.thread-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #111;
+  margin-bottom: 8px;
+}
+
+.thread-desc {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 16px;
+  flex-grow: 1;
+}
+
+.thread-people-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.people-badges {
+  margin-bottom: 16px;
+}
+
+.card-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: auto;
+}
+
+.skeleton-card {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #eee;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.person-badge {
+  display: inline-block;
+  background: #e2e8f0;
+  color: #334155;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  margin-right: 6px;
+  margin-bottom: 6px;
+}
+
+
+.edit-btn, .delete-btn { padding: 6px 12px; font-size: 13px; border-radius: 4px; cursor: pointer; border: 1px solid transparent; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; }
+.edit-btn { background: #f1f5f9; color: #334155; }
+.edit-btn:hover { background: #e2e8f0; }
+.delete-btn { background: #fee2e2; color: #b91c1c; }
+.delete-btn:hover { background: #fca5a5; }
+
+/* Pagination and Skeletons */
+.pagination-controls { display: flex; justify-content: flex-end; align-items: center; gap: 16px; margin-top: 16px; padding: 8px 0; }
+.pagination-controls button { padding: 8px 16px; border: 1px solid #ddd; background: #fff; border-radius: 6px; cursor: pointer; color: #333; }
+.pagination-controls button:hover:not(:disabled) { background: #f1f5f9; }
+.pagination-controls button:disabled { opacity: 0.5; cursor: not-allowed; }
+.pagination-info { font-size: 14px; color: #555; font-weight: 500; }
+.skeleton-box { height: 20px; background: #e2e8f0; border-radius: 4px; animation: pulse 1.5s infinite ease-in-out; }
+@keyframes pulse { 0% { opacity: 0.6; } 50% { opacity: 1; } 100% { opacity: 0.6; } }
+
+.people-count {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #64748b;
+  margin-bottom: 16px;
+}
+
+.people-icon {
+  color: #94a3b8;
+}
+
+.people-number {
+  font-size: 14px;
+  font-weight: 500;
+}
