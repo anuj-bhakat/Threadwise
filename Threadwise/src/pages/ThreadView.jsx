@@ -140,7 +140,7 @@ function ThreadView() {
                                 )}
 
                                 {activeTab === 'task' && (
-                                    <TaskForm threadId={id} token={token} allPeople={allPeople} onSuccess={fetchThreadDetails} />
+                                    <TaskForm threadId={id} token={token} allPeople={associatedPeople} onSuccess={fetchThreadDetails} />
                                 )}
                             </div>
                         </div>
