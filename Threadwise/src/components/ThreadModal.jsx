@@ -93,20 +93,30 @@ function ThreadModal({ isOpen, thread, peopleList, onClose, onSuccess }) {
               className={styles['modal-search-input']}
             />
             <div className={styles['checkbox-group']}>
-              {filteredPeopleList.length > 0 ? filteredPeopleList.map(person => (
+              {filteredPeopleList.length > 0 ? filteredPeopleList.map(person => {
+                const isSelected = formData.person_ids.includes(person.person_id);
+                return (
                 <label 
                   key={person.person_id} 
-                  className={`${styles['checkbox-item']} ${formData.person_ids.includes(person.person_id) ? styles.selected : ''}`}
+                  className={`${styles['checkbox-item']} ${isSelected ? styles.selected : ''}`}
                 >
                   <input 
                     type="checkbox" 
-                    checked={formData.person_ids.includes(person.person_id)}
+                    className={styles['hidden-checkbox']}
+                    checked={isSelected}
                     onChange={() => handleCheckboxChange(person.person_id)}
                   />
-                  <span className={styles['checkbox-label-text']}>{person.name}</span>
-                  {person.email && <span className={styles['checkbox-label-sub']}>({person.email})</span>}
+                  <div className={styles['person-info']}>
+                    <span className={styles['checkbox-label-text']}>{person.name}</span>
+                    {person.email && <span className={styles['checkbox-label-sub']}>{person.email}</span>}
+                  </div>
+                  {isSelected && (
+                      <svg className={styles['check-icon']} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                          <polyline points="20 6 9 17 4 12"></polyline>
+                      </svg>
+                  )}
                 </label>
-              )) : (
+              )}) : (
                 <span className={styles['empty-text']}>No people found.</span>
               )}
             </div>

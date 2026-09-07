@@ -108,7 +108,7 @@ export default function TaskForm({ threadId, token, allPeople, onSuccess }) {
                 </div>
             )}
             <div className={styles['form-group']}>
-                <label>Assign People</label>
+                <label>Associate People</label>
                 <input
                     type="text"
                     placeholder="Search directory..."
@@ -117,16 +117,28 @@ export default function TaskForm({ threadId, token, allPeople, onSuccess }) {
                     className={styles['search-input']}
                 />
                 <div className={styles['people-list']}>
-                    {filteredPeople.map(p => (
-                        <label key={p.person_id} className={`${styles['person-select']} ${taskPersonIds.includes(p.person_id) ? styles.selected : ''}`}>
-                            <input
-                                type="checkbox"
-                                checked={taskPersonIds.includes(p.person_id)}
-                                onChange={() => togglePersonSelection(p.person_id)}
-                            />
-                            {p.name}
-                        </label>
-                    ))}
+                    {filteredPeople.map(p => {
+                        const isSelected = taskPersonIds.includes(p.person_id);
+                        return (
+                            <label key={p.person_id} className={`${styles['person-select']} ${isSelected ? styles.selected : ''}`}>
+                                <input
+                                    type="checkbox"
+                                    className={styles['hidden-checkbox']}
+                                    checked={isSelected}
+                                    onChange={() => togglePersonSelection(p.person_id)}
+                                />
+                                <div className={styles['person-info']}>
+                                    <span className={styles['person-name']}>{p.name}</span>
+                                    {p.email && <span className={styles['person-email']}>{p.email}</span>}
+                                </div>
+                                {isSelected && (
+                                    <svg className={styles['check-icon']} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                                        <polyline points="20 6 9 17 4 12"></polyline>
+                                    </svg>
+                                )}
+                            </label>
+                        );
+                    })}
                 </div>
             </div>
             <button type="submit" className={styles['primary-btn']} disabled={!taskDesc.trim() || isSubmitting}>

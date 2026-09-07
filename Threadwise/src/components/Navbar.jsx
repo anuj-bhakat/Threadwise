@@ -18,11 +18,12 @@ function Navbar() {
     <nav className={styles.navbar}>
       <div className={styles['navbar-container']}>
         <h1>
-          <Link to="/home" className={styles['navbar-brand']}>Threadwise</Link>
+          <span className={styles['navbar-brand']}>Threadwise</span>
         </h1>
         
         <div className={styles['navbar-right']}>
           <div className={`${styles['nav-links']} ${isMobileMenuOpen ? styles['mobile-open'] : ''}`}>
+            <Link to="/home" className={styles['nav-link']}>Home</Link>
             <Link to="/threads" className={styles['nav-link']}>Threads</Link>
             <Link to="/people" className={styles['nav-link']}>People Directory</Link>
             <button className={styles['logout-btn']} onClick={handleLogout}>Logout</button>
