@@ -13,6 +13,7 @@ function ThreadsPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
+  const [isDeletingThreadId, setIsDeletingThreadId] = useState(null);
   const itemsPerPage = 8;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -58,6 +59,7 @@ function ThreadsPage() {
 
   const handleDelete = async (id) => {
     if (confirm("Are you sure you want to delete this thread?")) {
+      setIsDeletingThreadId(id);
       try {
         await axios.delete(`${API_URL}/threads/${id}`, {
           headers: { Authorization: `Bearer ${token}` }
@@ -65,6 +67,8 @@ function ThreadsPage() {
         fetchData();
       } catch (error) {
         console.error("Error deleting thread", error);
+      } finally {
+        setIsDeletingThreadId(null);
       }
     }
   };
@@ -130,7 +134,9 @@ function ThreadsPage() {
 
                 <div className={styles['card-actions']}>
                   <button className={styles['edit-btn']} onClick={(e) => { e.stopPropagation(); openModal(thread); }}>Edit</button>
-                  <button className={styles['delete-btn']} onClick={(e) => { e.stopPropagation(); handleDelete(thread.thread_id); }}>Delete</button>
+                  <button className={styles['delete-btn']} onClick={(e) => { e.stopPropagation(); handleDelete(thread.thread_id); }} disabled={isDeletingThreadId === thread.thread_id}>
+                    {isDeletingThreadId === thread.thread_id ? 'Deleting...' : 'Delete'}
+                  </button>
                 </div>
               </div>
             ))

@@ -43,8 +43,8 @@ export const getUserReminders = async (req, res) => {
       `SELECT r.*, t.description as task_description 
        FROM reminders r
        JOIN tasks t ON r.task_id = t.task_id
-       WHERE r.user_id = $1 AND r.dismissed = FALSE
-       ORDER BY r.reminder_time ASC`,
+       WHERE r.user_id = $1 AND r.dismissed = FALSE AND r.reminder_time <= NOW()
+       ORDER BY r.reminder_time DESC`,
       [userId]
     );
 

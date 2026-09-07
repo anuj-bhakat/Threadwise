@@ -7,6 +7,9 @@ const API_URL = import.meta.env.VITE_API_URL;
 export default function ActivityTimeline({ activity, token, fetchThreadDetails, setActivity }) {
     const [editingContextId, setEditingContextId] = useState(null);
     const [editContextContent, setEditContextContent] = useState("");
+    const [isSavingContextId, setIsSavingContextId] = useState(null);
+    const [isDeletingContextId, setIsDeletingContextId] = useState(null);
+    const [isDeletingTaskId, setIsDeletingTaskId] = useState(null);
 
     const formatDate = (dateStr) => {
         return new Date(dateStr).toLocaleString('en-US', {
@@ -27,6 +30,7 @@ export default function ActivityTimeline({ activity, token, fetchThreadDetails, 
 
     const handleUpdateContext = async (contextId) => {
         if (!editContextContent.trim()) return;
+        setIsSavingContextId(contextId);
         try {
             await axios.put(`${API_URL}/contexts/${contextId}`, { content: editContextContent }, { headers: { Authorization: `Bearer ${token}` } });
             setEditingContextId(null);
@@ -34,16 +38,21 @@ export default function ActivityTimeline({ activity, token, fetchThreadDetails, 
             fetchThreadDetails();
         } catch (error) {
             console.error(error);
+        } finally {
+            setIsSavingContextId(null);
         }
     };
 
     const handleDeleteContext = async (contextId) => {
         if (confirm("Are you sure you want to delete this note?")) {
+            setIsDeletingContextId(contextId);
             try {
                 await axios.delete(`${API_URL}/contexts/${contextId}`, { headers: { Authorization: `Bearer ${token}` } });
                 fetchThreadDetails();
             } catch (error) {
                 console.error(error);
+            } finally {
+                setIsDeletingContextId(null);
             }
         }
     };
@@ -67,11 +76,14 @@ export default function ActivityTimeline({ activity, token, fetchThreadDetails, 
 
     const handleDeleteTask = async (taskId) => {
         if (confirm("Are you sure you want to delete this task?")) {
+            setIsDeletingTaskId(taskId);
             try {
                 await axios.delete(`${API_URL}/tasks/${taskId}`, { headers: { Authorization: `Bearer ${token}` } });
                 fetchThreadDetails();
             } catch (error) {
                 console.error(error);
+            } finally {
+                setIsDeletingTaskId(null);
             }
         }
     };
@@ -97,12 +109,16 @@ export default function ActivityTimeline({ activity, token, fetchThreadDetails, 
                             {item.type === 'context' && editingContextId !== item.context_id && (
                                 <div className={styles['item-actions']}>
                                     <button onClick={() => handleEditContextClick(item.context_id, item.content)} className={styles['action-btn']}>Edit</button>
-                                    <button onClick={() => handleDeleteContext(item.context_id)} className={`${styles['action-btn']} ${styles.danger}`}>Delete</button>
+                                    <button onClick={() => handleDeleteContext(item.context_id)} className={`${styles['action-btn']} ${styles.danger}`} disabled={isDeletingContextId === item.context_id}>
+                                        {isDeletingContextId === item.context_id ? 'Deleting...' : 'Delete'}
+                                    </button>
                                 </div>
                             )}
                             {item.type === 'task' && (
                                 <div className={styles['item-actions']}>
-                                    <button onClick={() => handleDeleteTask(item.task_id)} className={`${styles['action-btn']} ${styles.danger}`}>Delete</button>
+                                    <button onClick={() => handleDeleteTask(item.task_id)} className={`${styles['action-btn']} ${styles.danger}`} disabled={isDeletingTaskId === item.task_id}>
+                                        {isDeletingTaskId === item.task_id ? 'Deleting...' : 'Delete'}
+                                    </button>
                                 </div>
                             )}
                         </div>
@@ -118,8 +134,10 @@ export default function ActivityTimeline({ activity, token, fetchThreadDetails, 
                                             rows="3"
                                         />
                                         <div className={styles['edit-actions']}>
-                                            <button className={styles['save-btn']} onClick={() => handleUpdateContext(item.context_id)}>Save</button>
-                                            <button className={styles['cancel-btn']} onClick={handleCancelEdit}>Cancel</button>
+                                            <button className={styles['save-btn']} onClick={() => handleUpdateContext(item.context_id)} disabled={isSavingContextId === item.context_id}>
+                                                {isSavingContextId === item.context_id ? 'Saving...' : 'Save'}
+                                            </button>
+                                            <button className={styles['cancel-btn']} onClick={handleCancelEdit} disabled={isSavingContextId === item.context_id}>Cancel</button>
                                         </div>
                                     </div>
                                 ) : (

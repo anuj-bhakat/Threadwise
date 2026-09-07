@@ -13,6 +13,7 @@ function PeopleDirectory() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 
+  const [isDeletingPersonId, setIsDeletingPersonId] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingPerson, setEditingPerson] = useState(null);
 
@@ -53,6 +54,7 @@ function PeopleDirectory() {
 
   const handleDelete = async (id) => {
     if (confirm("Are you sure you want to delete this person?")) {
+      setIsDeletingPersonId(id);
       try {
         await axios.delete(`${API_URL}/people/${id}`, {
           headers: { Authorization: `Bearer ${token}` }
@@ -60,6 +62,8 @@ function PeopleDirectory() {
         fetchPeople();
       } catch (error) {
         console.error("Error deleting person", error);
+      } finally {
+        setIsDeletingPersonId(null);
       }
     }
   };
@@ -128,7 +132,9 @@ function PeopleDirectory() {
                   <td>
                     <div className={styles['table-actions']}>
                       <button className={styles['edit-btn']} onClick={() => openModal(person)}>Edit</button>
-                      <button className={styles['delete-btn']} onClick={() => handleDelete(person.person_id)}>Delete</button>
+                      <button className={styles['delete-btn']} onClick={() => handleDelete(person.person_id)} disabled={isDeletingPersonId === person.person_id}>
+                        {isDeletingPersonId === person.person_id ? 'Deleting...' : 'Delete'}
+                      </button>
                     </div>
                   </td>
                 </tr>

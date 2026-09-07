@@ -12,6 +12,7 @@ export default function TaskForm({ threadId, token, allPeople, onSuccess }) {
     const [personSearch, setPersonSearch] = useState("");
     const [setReminder, setSetReminder] = useState(false);
     const [reminderTime, setReminderTime] = useState("");
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const filteredPeople = allPeople.filter(p => p.name.toLowerCase().includes(personSearch.toLowerCase()));
 
@@ -21,7 +22,8 @@ export default function TaskForm({ threadId, token, allPeople, onSuccess }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!taskDesc.trim()) return;
+        if (!taskDesc.trim() || isSubmitting) return;
+        setIsSubmitting(true);
         try {
             const res = await axios.post(`${API_URL}/tasks`, {
                 thread_id: threadId,
@@ -49,6 +51,8 @@ export default function TaskForm({ threadId, token, allPeople, onSuccess }) {
             if (onSuccess) onSuccess();
         } catch (error) {
             console.error(error);
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
@@ -125,7 +129,9 @@ export default function TaskForm({ threadId, token, allPeople, onSuccess }) {
                     ))}
                 </div>
             </div>
-            <button type="submit" className={styles['primary-btn']} disabled={!taskDesc.trim()}>Create Task</button>
+            <button type="submit" className={styles['primary-btn']} disabled={!taskDesc.trim() || isSubmitting}>
+                {isSubmitting ? "Creating..." : "Create Task"}
+            </button>
         </form>
     );
 }
