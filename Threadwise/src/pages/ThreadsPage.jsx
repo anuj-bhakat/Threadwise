@@ -104,7 +104,7 @@ function ThreadsPage() {
 
         <div className={styles['threads-grid']}>
           {isLoading ? (
-            Array.from({ length: 3 }).map((_, index) => (
+            Array.from({ length: 8 }).map((_, index) => (
               <div key={index} className={styles['skeleton-card']}>
                 <div className={styles['skeleton-box']} style={{ width: '60%' }}></div>
                 <div className={styles['skeleton-box']} style={{ width: '100%' }}></div>

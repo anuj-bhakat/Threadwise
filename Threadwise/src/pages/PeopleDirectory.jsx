@@ -111,7 +111,7 @@ function PeopleDirectory() {
           </thead>
           <tbody>
             {isLoading ? (
-              Array.from({ length: 3 }).map((_, index) => (
+              Array.from({ length: 5 }).map((_, index) => (
                 <tr key={index} className={styles['skeleton-row']}>
                   <td><div className={styles['skeleton-box']} style={{ width: '80%' }}></div></td>
                   <td><div className={styles['skeleton-box']} style={{ width: '100%' }}></div></td>
