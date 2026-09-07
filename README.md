@@ -2,7 +2,7 @@
 
 A comprehensive full-stack task and thread management application designed to keep your projects organized and your team in sync.
 
-## 🌟 Features
+## Features
 
 - **Thread Management**: Organize discussions and tasks into distinct threads.
 - **Smart Task Dashboard**: Automatically categorizes threads into Needs Action (Overdue, Due Today, Upcoming).
@@ -12,14 +12,14 @@ A comprehensive full-stack task and thread management application designed to ke
 - **Notifications System**: Stay updated with a dedicated notifications center for assigned tasks and updates.
 - **Responsive Design**: Beautiful, premium UI that works seamlessly across desktop and mobile devices.
 
-## 🏗️ Project Structure
+## Project Structure
 
 The project is structured as a monorepo containing both the frontend and backend code:
 
 - `/Threadwise` - The Frontend React application (built with Vite)
 - `/backend` - The Backend Node.js / Express API
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -38,7 +38,12 @@ The project is structured as a monorepo containing both the frontend and backend
    npm install
    ```
 3. Set up your environment variables:
-   Create a `.env` file in the `backend/` directory based on your database and JWT secret requirements.
+   Create a `.env` file in the `backend/` directory with the following variables:
+   ```env
+   PORT=5000
+   JWT_SECRET=your_jwt_secret_here
+   DATABASE_URL=postgresql://user:password@localhost:5432/your_database
+   ```
 4. Start the backend development server:
    ```bash
    npm run dev
@@ -64,7 +69,7 @@ The project is structured as a monorepo containing both the frontend and backend
    npm run dev
    ```
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Frontend**: React, Vite, CSS Modules
 - **Backend**: Node.js, Express
