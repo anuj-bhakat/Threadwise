@@ -42,7 +42,7 @@ function Login() {
       console.error(err);
 
       setError(
-        err.message ||
+        err.response?.data?.message ||
         "Login failed. Please check your credentials."
       );
     } finally {
